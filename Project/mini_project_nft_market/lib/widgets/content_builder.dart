@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mini_project_nft_market/models/content.dart';
-import 'package:mini_project_nft_market/models/creator.dart';
-import 'package:mini_project_nft_market/presentation/details/detail_view.dart';
-import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
+import 'package:mini_project_nft_market/presentation/content/detail_view.dart';
 
 class ContentBuilder extends StatelessWidget {
   const ContentBuilder({
@@ -23,7 +21,7 @@ class ContentBuilder extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -35,7 +33,7 @@ class ContentBuilder extends StatelessWidget {
             mainAxisSpacing: 5.0,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: List.generate(
               snapshot.data!.length,
               (index) {
@@ -60,7 +58,7 @@ class ContentBuilder extends StatelessWidget {
                               : "https://media.sketchfab.com/models/f6ddbea69b364ea19ef9986894004fc0/thumbnails/adbc9230ab9f49c3abf55bdef1c1d25f/2b590f8f02794abbbfabd6d484dfa9d5.jpeg"),
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(10.0),
                         ),
                       ),

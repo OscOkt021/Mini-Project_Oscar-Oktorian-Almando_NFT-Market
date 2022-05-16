@@ -35,5 +35,5 @@ class Creator {
 
   @override
   String toString() =>
-      'Creator(id : ${id}, nick name : ${nickName}, real name : ${realName}, \nabout : ${about}, image profile : ${imgProfile})';
+      'Creator(id : $id, nick name : $nickName, real name : $realName, \nabout : $about, image profile : $imgProfile)';
 }

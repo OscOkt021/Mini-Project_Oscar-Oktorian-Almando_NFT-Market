@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/content.dart';
+import 'package:mini_project_nft_market/presentation/ViewModel/content_creator_view_model.dart';
 import 'package:mini_project_nft_market/presentation/dashboard_page/dashboard_page.dart';
-import 'package:mini_project_nft_market/presentation/details/content_form.dart';
-import 'package:mini_project_nft_market/presentation/details/detail_view.dart';
+import 'package:mini_project_nft_market/presentation/content/content_form.dart';
 import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
 import 'package:mini_project_nft_market/widgets/content_builder.dart';
+import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 
 class ItemView extends StatefulWidget {
-  ItemView({Key? key}) : super(key: key);
+  const ItemView({Key? key}) : super(key: key);
 
   @override
   State<ItemView> createState() => _ItemViewState();
 }
 
 class _ItemViewState extends State<ItemView> {
+  final ContentCreatorVM contentCreatorVM = ContentCreatorVM();
   final DatabaseService _databaseService = DatabaseService();
-
-  Future<List<Content>> _getContents() async {
-    return await _databaseService.content();
-  }
 
   Future<void> _onContentDelete(Content content) async {
     await _databaseService.deleteContent(content.id!);
@@ -44,23 +42,23 @@ class _ItemViewState extends State<ItemView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.purple[300],
-                            shape: CircleBorder(),
+                            shape: const CircleBorder(),
                           ),
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.navigate_before,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Center(
+                  const Center(
                     child: GradientText("Explore It!",
                         style: TextStyle(
                           color: Colors.white,
@@ -77,7 +75,7 @@ class _ItemViewState extends State<ItemView> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
+                      children: const [
                         Badge(
                           color: Colors.blue,
                         ),
@@ -120,13 +118,14 @@ class _ItemViewState extends State<ItemView> {
                     ),
                   ),
                   ContentBuilder(
-                    future: _getContents(),
+                    // future: _getContents(),
+                    future: contentCreatorVM.getContents(),
                     onEdit: (value) {
                       {
                         Navigator.of(context)
                             .push(
                               MaterialPageRoute(
-                                builder: (_) => ContentForm(),
+                                builder: (_) => const ContentForm(),
                                 fullscreenDialog: true,
                               ),
                             )

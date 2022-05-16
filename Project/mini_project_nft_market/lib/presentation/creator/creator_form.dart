@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/creator.dart';
 import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
@@ -23,24 +25,26 @@ class _CreatorFormState extends State<CreatorForm> {
     final imgUrl = _imgController.text;
     final about = _aboutController.text;
 
-    final creatorSave = Creator(
-        nickName: nickName,
-        realName: realName,
-        imgProfile: imgUrl,
-        about: about);
+    if (nickName != "" && realName != "" && imgUrl != "" && about != "") {
+      final creatorSave = Creator(
+          nickName: nickName,
+          realName: realName,
+          imgProfile: imgUrl,
+          about: about);
 
-    await _databaseService.insertCreator(creatorSave);
+      await _databaseService.insertCreator(creatorSave);
 
-    Navigator.pop(context);
-
-    print("simpan berhasil : ${creatorSave.toString()} ");
+      Navigator.pop(context);
+    } else {
+      print("kolom masih kosong");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a new Creator'),
+        title: const Text('Add a new Creator'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -51,42 +55,42 @@ class _CreatorFormState extends State<CreatorForm> {
             children: [
               TextField(
                 controller: _nickNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Creator Nickname',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _realNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Creator Real Name',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _imgController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Image Url',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _aboutController,
                 maxLines: 7,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'About Creator',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               SizedBox(
                 height: 45.0,
                 child: ElevatedButton(
                   onPressed: _onSave,
-                  child: Text(
+                  child: const Text(
                     'Save the Creator',
                     style: TextStyle(
                       fontSize: 16.0,

@@ -36,7 +36,7 @@ class _ContentFormState extends State<ContentForm> {
 
   Future<List<Creator>> _getCreators() async {
     final creators = await _databaseService.creators();
-    if (_creators.length == 0) _creators.addAll(creators);
+    if (_creators.isEmpty) _creators.addAll(creators);
     if (widget.content != null) {
       _selectedCreator =
           _creators.indexWhere((e) => e.id == widget.content!.creatorId);
@@ -51,34 +51,40 @@ class _ContentFormState extends State<ContentForm> {
     final price = double.parse(_priceController.text);
     final creators = _creators[_selectedCreator];
     // Add save code here
-    widget.content == null
-        ? await _databaseService.insertContent(
-            Content(
-              title: title,
-              imgUrl: imgUrl,
-              description: description,
-              price: price,
-              creatorId: creators.id!,
-            ),
-          )
-        : await _databaseService.updateContent(
-            Content(
-              title: title,
-              imgUrl: imgUrl,
-              description: description,
-              price: price,
-              creatorId: creators.id!,
-            ),
-          );
 
-    Navigator.pop(context);
+    if (title != "" && imgUrl != "" && description != "") {
+      widget.content == null
+          ? await _databaseService.insertContent(
+              Content(
+                title: title,
+                imgUrl: imgUrl,
+                description: description,
+                price: price,
+                creatorId: creators.id!,
+              ),
+            )
+          : await _databaseService.updateContent(
+              Content(
+                title: title,
+                imgUrl: imgUrl,
+                description: description,
+                price: price,
+                creatorId: creators.id!,
+              ),
+            );
+
+      Navigator.pop(context);
+    } else {
+      // ignore: avoid_print
+      print("kolom masih kosong");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Content!'),
+        title: const Text('New Content!'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -89,43 +95,43 @@ class _ContentFormState extends State<ContentForm> {
             children: [
               TextField(
                 controller: _titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter title',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _descriptionController,
                 maxLines: 7,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Describe this content',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _imgUrlController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter image url',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 keyboardType: TextInputType.number,
                 controller: _priceController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter price',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               FutureBuilder<List<Creator>>(
                 future: _getCreators(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading creators...");
+                    return const Text("Loading creators...");
                   }
                   return CreatorSelector(
                     creators: _creators.map((e) => e.nickName).toList(),
@@ -138,12 +144,12 @@ class _ContentFormState extends State<ContentForm> {
                   );
                 },
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               SizedBox(
                 height: 45.0,
                 child: ElevatedButton(
                   onPressed: _onSave,
-                  child: Text(
+                  child: const Text(
                     'Save the content data',
                     style: TextStyle(
                       fontSize: 16.0,

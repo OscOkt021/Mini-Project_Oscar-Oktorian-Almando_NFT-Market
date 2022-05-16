@@ -7,7 +7,7 @@ import 'package:mini_project_nft_market/services/auth/cubit/auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Image(
+            const Image(
               image: AssetImage("assets/images/bg/bg1.jpg"),
               fit: BoxFit.cover,
             ),
@@ -64,25 +64,27 @@ class _LoginState extends State<Login> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text("Error"),
+                title: const Text("Error"),
                 content: Text(state.errorMessage.toString()),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("OK"))
+                      child: const Text("OK"))
                 ],
               ),
             );
           } else if (state is AuthLoading) {
+            // ignore: avoid_print
             print("Loading");
           } else if (state is AuthSuccess) {
+            // ignore: avoid_print
             print(state.dataLogin);
             Navigator.of(context).pushReplacement(
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return DashboardPage();
+                  return const DashboardPage();
                 },
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
@@ -106,16 +108,16 @@ class _LoginState extends State<Login> {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.purple[300],
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                         ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.navigate_before,
                         ),
                       ),
@@ -136,9 +138,9 @@ class _LoginState extends State<Login> {
                   child: Center(
                     child: ListView(
                       shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       children: [
-                        Center(
+                        const Center(
                           child: Padding(
                             padding: EdgeInsets.all(20),
                             child: Hero(
@@ -156,22 +158,24 @@ class _LoginState extends State<Login> {
                         ),
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: TextField(
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               controller: widget.usernameC,
                               decoration: InputDecoration(
                                 hintText: 'Email',
                                 hintStyle: TextStyle(
                                     color: Colors.white.withOpacity(.5)),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 25, vertical: 20),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                               ),
@@ -180,23 +184,25 @@ class _LoginState extends State<Login> {
                         ),
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: TextField(
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               controller: widget.passwordC,
                               obscureText: true,
                               decoration: InputDecoration(
                                 hintText: 'Password',
                                 hintStyle: TextStyle(
                                     color: Colors.white.withOpacity(.5)),
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 25, vertical: 20),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide:
+                                      const BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                               ),
@@ -205,7 +211,7 @@ class _LoginState extends State<Login> {
                         ),
                         Center(
                           child: (state is AuthLoading)
-                              ? _loginButtonLoading()
+                              ? const _loginButtonLoading()
                               : Logins(
                                   usernameC: widget.usernameC,
                                   passwordC: widget.passwordC,
@@ -237,7 +243,7 @@ class Logins extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(bottom: 5),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -250,8 +256,6 @@ class Logins extends StatelessWidget {
               final _requestData = LoginRequest(
                 email: usernameC.text,
                 password: passwordC.text,
-                // email: "eve.holt@reqres.in",
-                // password: "terserah",
               );
               context.read<AuthCubit>().signInUser(_requestData);
             } else {
@@ -259,14 +263,14 @@ class Logins extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text("Warning"),
-                    content: Text("Email format is not Correct"),
+                    title: const Text("Warning"),
+                    content: const Text("Email format is not Correct"),
                     actions: [
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("OK"))
+                          child: const Text("OK"))
                     ],
                   );
                 },
@@ -274,12 +278,13 @@ class Logins extends StatelessWidget {
             }
           }
         },
-        child: Text("Login"),
+        child: const Text("Login"),
       ),
     );
   }
 }
 
+// ignore: camel_case_types
 class _loginButtonLoading extends StatelessWidget {
   const _loginButtonLoading({
     Key? key,
@@ -287,7 +292,7 @@ class _loginButtonLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return const ElevatedButton(
       onPressed: null,
       child: CircularProgressIndicator(),
     );

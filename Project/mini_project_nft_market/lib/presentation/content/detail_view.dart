@@ -1,9 +1,6 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/content.dart';
-import 'package:mini_project_nft_market/models/creator.dart';
-import 'package:mini_project_nft_market/presentation/home/home.dart';
-import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
+import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({
@@ -18,8 +15,14 @@ class DetailView extends StatefulWidget {
 }
 
 class _DetailViewState extends State<DetailView> {
-  final DatabaseService _databaseService = DatabaseService();
-
+  final gradient = const LinearGradient(
+    colors: <Color>[
+      Colors.purple,
+      Colors.pink,
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,18 +43,18 @@ class _DetailViewState extends State<DetailView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Row(
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: Colors.purple[300],
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                             ),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.navigate_before,
                             ),
                           ),
@@ -78,22 +81,17 @@ class _DetailViewState extends State<DetailView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      GradientIconButton(
-                                        onpressed: () {
-                                          // Navigator.of(context).push(
-                                          //   MaterialPageRoute(builder: (context) {
-                                          //     return MyHomeMobile();
-                                          //   }),
-                                          // );
-                                        },
+                                      GradientIcon(
+                                        icon: Icons.add,
+                                        gradient: gradient,
                                       ),
-                                      GradientIconButton(
+                                      GradientIcon(
                                         icon: Icons.share,
-                                        onpressed: () {},
+                                        gradient: gradient,
                                       ),
-                                      GradientIconButton(
-                                        icon: Icons.favorite_border,
-                                        onpressed: () {},
+                                      GradientIcon(
+                                        icon: Icons.favorite_border_outlined,
+                                        gradient: gradient,
                                       ),
                                     ]),
                               ],
@@ -103,24 +101,24 @@ class _DetailViewState extends State<DetailView> {
                       ),
                     ),
                     GradientText(widget.content.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontFamily: "Saira Condensed",
                           fontSize: 35,
                         ),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [Colors.purple, Colors.pink],
                         )),
                     SingleChildScrollView(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Text(
                           widget.content.description,
                           overflow: TextOverflow.fade,
                           maxLines: 2,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "Saira Condensed",
                             fontSize: 20,
@@ -131,7 +129,7 @@ class _DetailViewState extends State<DetailView> {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         CircleAvatar(
                           radius: 25.0,
                           backgroundImage: NetworkImage(
@@ -163,7 +161,7 @@ class _DetailViewState extends State<DetailView> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Row(
@@ -172,13 +170,13 @@ class _DetailViewState extends State<DetailView> {
                         Expanded(
                           child: Column(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.currency_bitcoin,
                                 color: Colors.white,
                               ),
                               Text(
                                 "${widget.content.price}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Saira Condensed",
                                   color: Colors.white,
                                 ),
@@ -188,7 +186,7 @@ class _DetailViewState extends State<DetailView> {
                         ),
                         Expanded(
                           child: Column(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.date_range,
                                 color: Colors.white,
@@ -205,7 +203,7 @@ class _DetailViewState extends State<DetailView> {
                         ),
                         Expanded(
                           child: Column(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.favorite_rounded,
                                 color: Colors.white,
@@ -223,7 +221,7 @@ class _DetailViewState extends State<DetailView> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(0.0),
@@ -231,7 +229,7 @@ class _DetailViewState extends State<DetailView> {
                         ),
                         onPressed: () {},
                         child: Ink(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             gradient: LinearGradient(
                                 colors: [Colors.purple, Colors.pink]),
                           ),
@@ -253,61 +251,6 @@ class _DetailViewState extends State<DetailView> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class GradientIconButton extends StatelessWidget {
-  const GradientIconButton({
-    Key? key,
-    this.icon = Icons.add,
-    this.onpressed,
-  }) : super(key: key);
-
-  final IconData icon;
-  final void Function()? onpressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Container(
-        foregroundDecoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.purple, Colors.pink],
-            ),
-            backgroundBlendMode: BlendMode.screen),
-        child: Icon(
-          icon,
-        ),
-      ),
-      iconSize: 36,
-      color: Colors.black,
-      onPressed: onpressed,
-    );
-  }
-}
-
-class GradientText extends StatelessWidget {
-  const GradientText(
-    this.text, {
-    required this.gradient,
-    this.style,
-  });
-
-  final String text;
-  final TextStyle? style;
-  final Gradient gradient;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Text(text, style: style),
     );
   }
 }

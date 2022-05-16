@@ -39,5 +39,5 @@ class Content {
 
   @override
   String toString() =>
-      'Creator(id : ${id}, title : ${title}, Url : ${imgUrl}, desctiption : ${description}, price : ${price}, creator id : ${creatorId})';
+      'Creator(id : $id, title : $title, Url : $imgUrl, description : $description, price : $price, creator id : $creatorId)';
 }

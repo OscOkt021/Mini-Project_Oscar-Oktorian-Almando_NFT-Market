@@ -2,7 +2,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:mini_project_nft_market/models/home_card.dart';
 import 'package:mini_project_nft_market/presentation/login/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 class MyHomeMobile extends StatelessWidget {
   const MyHomeMobile({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class MyHomeMobile extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Image(
+            const Image(
               image: AssetImage("assets/images/bg/bg1.jpg"),
               fit: BoxFit.cover,
             ),
@@ -48,7 +47,7 @@ class MyHomeMobile extends StatelessWidget {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) {
-                              return LoginPage();
+                              return const LoginPage();
                             },
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
@@ -62,7 +61,7 @@ class MyHomeMobile extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text("Get Started")),
+                      child: const Text("Get Started")),
                 ),
               ],
             ),

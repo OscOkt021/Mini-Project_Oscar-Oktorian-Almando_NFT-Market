@@ -16,15 +16,15 @@ class CreatorSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Select Creator',
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 12.0),
-        Container(
+        const SizedBox(height: 12.0),
+        SizedBox(
           height: 40.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -34,7 +34,7 @@ class CreatorSelector extends StatelessWidget {
                 onTap: () => onChanged(index),
                 child: Container(
                   height: 40.0,
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   margin: const EdgeInsets.only(right: 12.0),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(

@@ -15,19 +15,10 @@ class CreatorBuilder extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
-
-        // return ListView.builder(
-        //   itemCount: snapshot.data!.length,
-        //   itemBuilder: (context, index) {
-        //     final creator = snapshot.data![index];
-        //     print(creator.realName);
-        //     return _buildBreedCard(creator, context);
-        //   },
-        // );
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -35,7 +26,7 @@ class CreatorBuilder extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final creator = snapshot.data![index];
-              print(creator.realName);
+              // print(creator.realName);
               return _buildBreedCard(creator, context);
             },
           ),
@@ -84,7 +75,7 @@ class CreatorBuilder extends StatelessWidget {
                 ),
                 backgroundColor: Colors.purple[300],
               ),
-              SizedBox(width: 20.0),
+              const SizedBox(width: 20.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,17 +83,17 @@ class CreatorBuilder extends StatelessWidget {
                   children: [
                     Text(
                       creator.nickName != "" ? creator.nickName : "Great",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
                         fontFamily: "Saira Condensed",
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     Text(
                       creator.about,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Saira Condensed",
                         color: Colors.white,
                       ),
