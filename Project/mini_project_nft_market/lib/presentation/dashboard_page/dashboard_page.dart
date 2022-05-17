@@ -101,14 +101,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          // child: Text(
-                          //   "The Biggest \nCollection of NFT's",
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontFamily: "Saira Condensed",
-                          //     fontSize: 40,
-                          //   ),
-                          // ),
                           child: GradientText(
                             "The Biggest \nCollection of NFT's",
                             gradient: gradient,
@@ -143,13 +135,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(children: [
-                          // ContentBuilderHorizontal(
-                          //     future: _getContents(), indeks: 1),
-
-                          // contentBuild(0),
-                          // contentBuild(1),
-                          // contentBuild(2),
-
                           const CardItem(
                             imgUrl:
                                 "https://barkpost-assets.s3.amazonaws.com/wp-content/uploads/2013/11/plainDoge.jpg",
@@ -165,7 +150,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                 "https://politicsandwar.com/uploads/4d9aee1eb2b42d5ac53a288ce9705b1303e5264e1000x56217.jpeg",
                             text: "Now!",
                           ),
-
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: ElevatedButton(

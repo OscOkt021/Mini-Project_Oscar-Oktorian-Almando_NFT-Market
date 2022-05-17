@@ -1,5 +1,6 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:mini_project_nft_market/presentation/dashboard_page/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/services/api/model/login_request.dart';
@@ -128,12 +129,12 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * (5 / 100),
+                  height: MediaQuery.of(context).size.height * (4 / 100),
                 ),
                 BlurryContainer(
                   blur: 4,
                   borderRadius: BorderRadius.circular(20),
-                  height: 400,
+                  height: 500,
                   width: MediaQuery.of(context).size.width - 20,
                   child: Center(
                     child: ListView(
@@ -183,30 +184,54 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: TextField(
-                              style: const TextStyle(color: Colors.white),
-                              controller: widget.passwordC,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                hintStyle: TextStyle(
-                                    color: Colors.white.withOpacity(.5)),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 25, vertical: 20),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.blue),
-                                  borderRadius: BorderRadius.circular(50),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: TextField(
+                                  style: const TextStyle(color: Colors.white),
+                                  controller: widget.passwordC,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: 'Password',
+                                    hintStyle: TextStyle(
+                                        color: Colors.white.withOpacity(.5)),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 20),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          const BorderSide(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          const BorderSide(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              FlutterPwValidator(
+                                controller: widget.passwordC,
+                                minLength: 8,
+                                uppercaseCharCount: 1,
+                                numericCharCount: 1,
+                                specialCharCount: 1,
+                                normalCharCount: 1,
+                                width: 300,
+                                height: 100,
+                                onSuccess: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Password is matched")));
+                                },
+                                onFail: () {},
+                              ),
+                            ],
                           ),
                         ),
                         Center(
@@ -259,23 +284,12 @@ class Logins extends StatelessWidget {
               );
               context.read<AuthCubit>().signInUser(_requestData);
             } else {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Warning"),
-                    content: const Text("Email format is not Correct"),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("OK"))
-                    ],
-                  );
-                },
-              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Email format is invalid")));
             }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Please fill email and Password")));
           }
         },
         child: const Text("Login"),

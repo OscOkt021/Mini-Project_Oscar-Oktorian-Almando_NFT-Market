@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/content.dart';
 import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
+import 'package:mini_project_nft_market/widgets/image_page.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({
@@ -68,8 +69,32 @@ class _DetailViewState extends State<DetailView> {
                         borderRadius: BorderRadius.circular(20),
                         child: Stack(
                           children: [
-                            Image(
-                              image: NetworkImage(widget.content.imgUrl),
+                            GestureDetector(
+                              child: Image(
+                                image: NetworkImage(widget.content.imgUrl),
+                              ),
+                              onLongPress: () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
+                                      return ImagePage(
+                                          imgUrl: widget.content.imgUrl);
+                                    },
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
+                                      final tween = Tween(
+                                          begin: const Offset(0, .5),
+                                          end: Offset.zero);
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
                             ),
                             Column(
                               children: [
