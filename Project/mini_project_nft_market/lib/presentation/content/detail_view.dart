@@ -83,12 +83,10 @@ class _DetailViewState extends State<DetailView> {
                                     },
                                     transitionsBuilder: (context, animation,
                                         secondaryAnimation, child) {
-                                      final tween = Tween(
-                                          begin: const Offset(0, .5),
-                                          end: Offset.zero);
+                                      final tween = Tween(begin: 0.0, end: 1.0);
 
-                                      return SlideTransition(
-                                        position: animation.drive(tween),
+                                      return FadeTransition(
+                                        opacity: animation.drive(tween),
                                         child: child,
                                       );
                                     },

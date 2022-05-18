@@ -43,12 +43,25 @@ class ContentBuilder extends StatelessWidget {
                   padding: const EdgeInsets.all(2.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return DetailView(
-                          content: content,
-                        );
-                      }));
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return DetailView(
+                              content: content,
+                            );
+                          },
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(begin: 0.0, end: 1.0);
+
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(

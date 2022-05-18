@@ -19,7 +19,8 @@ class DatabaseService {
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
 
-    final path = join(databasePath, 'nft_database.db');
+    // final path = join(databasePath, 'nft_database.db');
+    final path = join(databasePath, 'nft_database_dua.db');
 
     return await openDatabase(
       path,
@@ -66,6 +67,13 @@ class DatabaseService {
     final List<Map<String, dynamic>> maps =
         await db.query('creator', where: 'id = ?', whereArgs: [id]);
     return Creator.fromMap(maps[0]);
+  }
+
+  Future<Content> certainContent(int id) async {
+    final db = await _databaseService.database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('content', where: 'id = ?', whereArgs: [id]);
+    return Content.fromMap(maps[0]);
   }
 
   Future<List<Creator>> creators() async {

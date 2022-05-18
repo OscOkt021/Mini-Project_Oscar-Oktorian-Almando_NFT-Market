@@ -15,12 +15,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final usernameC = TextEditingController();
-
-  final passwordC = TextEditingController();
-
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               image: AssetImage("assets/images/bg/bg1.jpg"),
               fit: BoxFit.cover,
             ),
-            Login(usernameC: usernameC, passwordC: passwordC),
+            Login(),
           ],
         ),
       ),
@@ -41,14 +35,12 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class Login extends StatefulWidget {
-  const Login({
+  Login({
     Key? key,
-    required this.usernameC,
-    required this.passwordC,
   }) : super(key: key);
   // GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  final TextEditingController usernameC;
-  final TextEditingController passwordC;
+  final TextEditingController usernameC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
 
   @override
   State<Login> createState() => _LoginState();
@@ -82,6 +74,8 @@ class _LoginState extends State<Login> {
           } else if (state is AuthSuccess) {
             // ignore: avoid_print
             print(state.dataLogin);
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Login Success")));
             Navigator.of(context).pushReplacement(
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {

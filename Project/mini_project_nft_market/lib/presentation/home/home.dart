@@ -1,5 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:mini_project_nft_market/models/home_card.dart';
+import 'package:mini_project_nft_market/widgets/home_card.dart';
 import 'package:mini_project_nft_market/presentation/login/login_page.dart';
 import 'package:flutter/material.dart';
 
