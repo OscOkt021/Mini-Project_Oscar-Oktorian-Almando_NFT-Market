@@ -30,6 +30,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       creatorId: 1,
       price: 0.00001,
       title: "Sample",
+      dateCreated: DateTime.now(),
     ),
     Content(
       description: "Testing",
@@ -38,6 +39,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       creatorId: 1,
       price: 0.00001,
       title: "Sample 2",
+      dateCreated: DateTime.now(),
     ),
     Content(
       description: "Testing",
@@ -46,6 +48,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       creatorId: 1,
       price: 0.00001,
       title: "Sample 3",
+      dateCreated: DateTime.now(),
     ),
   ];
 

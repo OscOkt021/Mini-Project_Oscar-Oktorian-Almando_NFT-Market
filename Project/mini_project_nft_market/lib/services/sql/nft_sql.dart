@@ -30,7 +30,8 @@ class DatabaseService {
         );
 
         await db.execute(
-          'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
+          // 'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
+          'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, dateCreated INTEGER NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
         );
       },
       version: 1,

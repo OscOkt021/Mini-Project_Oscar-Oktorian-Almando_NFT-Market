@@ -56,21 +56,21 @@ class _ContentFormState extends State<ContentForm> {
       widget.content == null
           ? await _databaseService.insertContent(
               Content(
-                title: title,
-                imgUrl: imgUrl,
-                description: description,
-                price: price,
-                creatorId: creators.id!,
-              ),
+                  title: title,
+                  imgUrl: imgUrl,
+                  description: description,
+                  price: price,
+                  creatorId: creators.id!,
+                  dateCreated: DateTime.now()),
             )
           : await _databaseService.updateContent(
               Content(
-                title: title,
-                imgUrl: imgUrl,
-                description: description,
-                price: price,
-                creatorId: creators.id!,
-              ),
+                  title: title,
+                  imgUrl: imgUrl,
+                  description: description,
+                  price: price,
+                  creatorId: creators.id!,
+                  dateCreated: DateTime.now()),
             );
 
       Navigator.pop(context);

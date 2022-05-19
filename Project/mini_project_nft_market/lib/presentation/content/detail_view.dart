@@ -1,5 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/content.dart';
+import 'package:mini_project_nft_market/presentation/ViewModel/content_creator_view_model.dart';
+import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
+import 'package:mini_project_nft_market/widgets/creator_only.dart';
 import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 import 'package:mini_project_nft_market/widgets/image_page.dart';
 
@@ -24,8 +29,12 @@ class _DetailViewState extends State<DetailView> {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  final ContentCreatorVM ccvm = ContentCreatorVM();
+
   @override
   Widget build(BuildContext context) {
+    final date = widget.content.dateCreated;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -150,40 +159,42 @@ class _DetailViewState extends State<DetailView> {
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircleAvatar(
-                          radius: 25.0,
-                          backgroundImage: NetworkImage(
-                              'https://www.tutorialkart.com/img/hummingbird.png'),
-                          backgroundColor: Colors.transparent,
-                        ),
-                        ListTile(
-                          title: Center(
-                            child: Text(
-                              "Who",
-                              style: TextStyle(
-                                fontFamily: "Saira Condensed",
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          subtitle: Center(
-                            child: Text(
-                              "Artist",
-                              style: TextStyle(
-                                fontFamily: "Saira Condensed",
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white38,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children:  [
+                    //     CircleAvatar(
+                    //       radius: 25.0,
+                    //       backgroundImage: NetworkImage(
+                    //           'https://www.tutorialkart.com/img/hummingbird.png'),
+                    //       backgroundColor: Colors.transparent,
+                    //     ),
+                    //     ListTile(
+                    //       title: Center(
+                    //         child: Text(
+                    //           "Who",
+                    //           style: TextStyle(
+                    //             fontFamily: "Saira Condensed",
+                    //             fontWeight: FontWeight.w600,
+                    //             color: Colors.white,
+                    //             fontSize: 18,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       subtitle: Center(
+                    //         child: Text(
+                    //           "Artist",
+                    //           style: TextStyle(
+                    //             fontFamily: "Saira Condensed",
+                    //             fontWeight: FontWeight.w600,
+                    //             color: Colors.white38,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    CreatorOnly(
+                        future: ccvm.getCreator(widget.content.creatorId)),
                     const SizedBox(
                       height: 8,
                     ),
@@ -209,17 +220,18 @@ class _DetailViewState extends State<DetailView> {
                         ),
                         Expanded(
                           child: Column(
-                            children: const [
-                              Icon(
+                            children: [
+                              const Icon(
                                 Icons.date_range,
                                 color: Colors.white,
                               ),
                               Text(
-                                "21-04-2022",
-                                style: TextStyle(
+                                "${date.day}-${date.month}-${date.year}\n${date.hour}:${date.minute}",
+                                style: const TextStyle(
                                   fontFamily: "Saira Condensed",
                                   color: Colors.white,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),

@@ -5,15 +5,16 @@ class Content {
   final String description;
   final double price;
   final int creatorId;
+  DateTime dateCreated = DateTime.now();
 
-  Content({
-    this.id,
-    required this.title,
-    required this.imgUrl,
-    required this.description,
-    required this.price,
-    required this.creatorId,
-  });
+  Content(
+      {this.id,
+      required this.title,
+      required this.imgUrl,
+      required this.description,
+      required this.price,
+      required this.creatorId,
+      required this.dateCreated});
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,6 +24,7 @@ class Content {
       "description": description,
       "price": price,
       "creatorId": creatorId,
+      "dateCreated": dateCreated.millisecondsSinceEpoch
     };
   }
 
@@ -34,6 +36,8 @@ class Content {
       description: map['description'] ?? "",
       price: map['price']?.toDouble() ?? "",
       creatorId: map['creatorId']?.toInt() ?? 0,
+      dateCreated: DateTime.fromMillisecondsSinceEpoch(
+          map['dateCreated'] ?? DateTime.now()),
     );
   }
 

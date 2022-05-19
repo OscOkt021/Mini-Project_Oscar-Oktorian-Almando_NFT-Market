@@ -23,6 +23,10 @@ class ContentCreatorVM {
     return await _databaseService.certainContent(id);
   }
 
+  Future<Creator> getCreator(int id) async {
+    return await _databaseService.creator(id);
+  }
+
   Future<List<Creator>> getCreators() async {
     return await _databaseService.creators();
   }

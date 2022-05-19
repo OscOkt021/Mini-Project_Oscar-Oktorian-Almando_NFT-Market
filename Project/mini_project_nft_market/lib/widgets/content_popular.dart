@@ -29,6 +29,7 @@ class ContentPopular extends StatelessWidget {
     creatorId: 1,
     price: 0.009,
     title: "Sample",
+    dateCreated: DateTime.now(),
   );
 
   final Future<Content> future;
