@@ -31,7 +31,7 @@ class DatabaseService {
 
         await db.execute(
           // 'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
-          'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, dateCreated INTEGER NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
+          'CREATE TABLE content(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, imgUrl TEXT NOT NULL, description TEXT NOT NULL, price DOUBLE NOT NULL, creatorId INTEGER NOT NULL, dateCreated INTEGER NOT NULL, category TEXT NOT NULL, FOREIGN KEY (creatorId) REFERENCES creator(id) ON DELETE SET NULL)',
         );
       },
       version: 1,
@@ -86,6 +86,13 @@ class DatabaseService {
   Future<List<Content>> content() async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('content');
+    return List.generate(maps.length, (index) => Content.fromMap(maps[index]));
+  }
+
+  Future<List<Content>> contentByCategory() async {
+    final db = await _databaseService.database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('content', distinct: true, groupBy: "category");
     return List.generate(maps.length, (index) => Content.fromMap(maps[index]));
   }
 

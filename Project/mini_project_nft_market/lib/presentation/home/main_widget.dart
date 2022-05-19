@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/bg/nft-explorer.png',
         splashIconSize: 170,
         nextScreen: const MyHomeMobile(),
+        // nextScreen: const DashboardPage(),
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.fade,
         backgroundColor: Colors.purple,

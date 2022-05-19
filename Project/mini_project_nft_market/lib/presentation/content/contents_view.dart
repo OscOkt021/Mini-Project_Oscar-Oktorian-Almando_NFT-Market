@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/content.dart';
 import 'package:mini_project_nft_market/presentation/ViewModel/content_creator_view_model.dart';
+// ignore: unused_import
 import 'package:mini_project_nft_market/presentation/dashboard_page/dashboard_page.dart';
 import 'package:mini_project_nft_market/presentation/content/content_form.dart';
 import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
+import 'package:mini_project_nft_market/widgets/category_selector.dart';
 import 'package:mini_project_nft_market/widgets/content_builder.dart';
 import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 
@@ -21,6 +23,17 @@ class _ItemViewState extends State<ItemView> {
   Future<void> _onContentDelete(Content content) async {
     await _databaseService.deleteContent(content.id!);
     setState(() {});
+  }
+
+  static final List<Content> _contents = [];
+
+  int _selectedContent = 0;
+
+  Future<List<Content>> _getContents() async {
+    final contents = await _databaseService.contentByCategory();
+    if (_contents.isEmpty) _contents.addAll(contents);
+
+    return _contents;
   }
 
   @override
@@ -71,50 +84,79 @@ class _ItemViewState extends State<ItemView> {
                           colors: [Colors.purple, Colors.pink],
                         )),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Badge(
-                          color: Colors.blue,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Badge(
-                          icon: Icons.music_note,
-                          text: "Music",
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Badge(
-                          icon: Icons.camera,
-                          text: "Photography",
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Badge(
-                          icon: Icons.brush,
-                          text: "Art",
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Badge(
-                          icon: Icons.person,
-                          text: "Artist",
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Badge(
-                          icon: Icons.money,
-                          text: "Invest",
-                        ),
-                      ],
+                  // SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  // Badge(
+                  //   icon: Icons.circle,
+                  //   color: Colors.blue,
+                  //   text: "All",
+                  // ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Badge(
+                  //       //   icon: Icons.music_note,
+                  //       //   text: "Music",
+                  //       // ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Badge(
+                  //       //   icon: Icons.camera,
+                  //       //   text: "Aestethic",
+                  //       // ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Badge(
+                  //       //   icon: Icons.brush,
+                  //       //   text: "Art",
+                  //       // ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Badge(
+                  //       //   icon: Icons.person,
+                  //       //   text: "3D",
+                  //       // ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Badge(
+                  //       //   icon: Icons.money,
+                  //       //   text: "Invest",
+                  //       // ),
+
+                  //     ],
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 50,
+                    child: FutureBuilder<List<Content>>(
+                      future: _getContents(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text(
+                            "Loading categories",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          );
+                        }
+                        return CategorySelector(
+                          content: _contents.map((e) => e.category).toList(),
+                          selectedIndex: _selectedContent,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedContent = value;
+                            });
+                          },
+                        );
+                      },
                     ),
                   ),
                   ContentBuilder(

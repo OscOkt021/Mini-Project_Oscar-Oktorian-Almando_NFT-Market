@@ -225,6 +225,13 @@ class _LoginState extends State<Login> {
                                 },
                                 onFail: () {},
                               ),
+                              const Text(
+                                "use email \"eve.holt@reqres.in\" for login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Saira Condensed",
+                                ),
+                              ),
                             ],
                           ),
                         ),

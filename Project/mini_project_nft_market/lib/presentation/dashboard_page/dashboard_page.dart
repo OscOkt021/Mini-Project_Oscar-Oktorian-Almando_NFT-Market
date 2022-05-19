@@ -386,7 +386,7 @@ class CardItem extends StatelessWidget {
 class Badge extends StatelessWidget {
   const Badge({
     Key? key,
-    this.icon = Icons.add_alert,
+    this.icon = Icons.circle,
     this.text = "Trending",
     this.color = Colors.grey,
   }) : super(key: key);

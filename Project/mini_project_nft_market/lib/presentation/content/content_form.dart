@@ -17,7 +17,7 @@ class _ContentFormState extends State<ContentForm> {
   final TextEditingController _imgUrlController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-
+  String category = "music";
   static final List<Creator> _creators = [];
 
   final DatabaseService _databaseService = DatabaseService();
@@ -60,27 +60,32 @@ class _ContentFormState extends State<ContentForm> {
     final description = _descriptionController.text;
     final price = double.parse(_priceController.text);
     final creators = _creators[_selectedCreator];
+    final categories = category;
     // Add save code here
 
     if (title != "" && imgUrl != "" && description != "") {
       widget.content == null
           ? await _databaseService.insertContent(
               Content(
-                  title: title,
-                  imgUrl: imgUrl,
-                  description: description,
-                  price: price,
-                  creatorId: creators.id!,
-                  dateCreated: DateTime.now()),
+                title: title,
+                imgUrl: imgUrl,
+                description: description,
+                price: price,
+                creatorId: creators.id!,
+                dateCreated: DateTime.now(),
+                category: categories,
+              ),
             )
           : await _databaseService.updateContent(
               Content(
-                  title: title,
-                  imgUrl: imgUrl,
-                  description: description,
-                  price: price,
-                  creatorId: creators.id!,
-                  dateCreated: DateTime.now()),
+                title: title,
+                imgUrl: imgUrl,
+                description: description,
+                price: price,
+                creatorId: creators.id!,
+                dateCreated: DateTime.now(),
+                category: categories,
+              ),
             );
 
       Navigator.pop(context);
@@ -227,6 +232,60 @@ class _ContentFormState extends State<ContentForm> {
                         },
                       );
                     },
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(9),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Category",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                        DropdownButton<String>(
+                          value: category,
+                          icon: const Icon(
+                            Icons.arrow_circle_down,
+                            color: Colors.white,
+                          ),
+                          elevation: 16,
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.white,
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              category = value!;
+                            });
+                          },
+                          items: <String>[
+                            'music',
+                            'aesthetic',
+                            'art',
+                            '3d',
+                            'invest',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: "Saira Condensed",
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 24.0),
                   SizedBox(

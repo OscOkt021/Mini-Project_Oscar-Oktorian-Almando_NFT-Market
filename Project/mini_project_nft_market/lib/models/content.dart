@@ -6,15 +6,18 @@ class Content {
   final double price;
   final int creatorId;
   DateTime dateCreated = DateTime.now();
+  final String category;
 
-  Content(
-      {this.id,
-      required this.title,
-      required this.imgUrl,
-      required this.description,
-      required this.price,
-      required this.creatorId,
-      required this.dateCreated});
+  Content({
+    this.id,
+    required this.title,
+    required this.imgUrl,
+    required this.description,
+    required this.price,
+    required this.creatorId,
+    required this.dateCreated,
+    required this.category,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,7 +27,8 @@ class Content {
       "description": description,
       "price": price,
       "creatorId": creatorId,
-      "dateCreated": dateCreated.millisecondsSinceEpoch
+      "dateCreated": dateCreated.millisecondsSinceEpoch,
+      "category": category,
     };
   }
 
@@ -38,10 +42,11 @@ class Content {
       creatorId: map['creatorId']?.toInt() ?? 0,
       dateCreated: DateTime.fromMillisecondsSinceEpoch(
           map['dateCreated'] ?? DateTime.now()),
+      category: map['category'] ?? "",
     );
   }
 
   @override
   String toString() =>
-      'Creator(id : $id, title : $title, Url : $imgUrl, description : $description, price : $price, creator id : $creatorId)';
+      'Creator(id : $id, title : $title, Url : $imgUrl, description : $description, price : $price, creator id : $creatorId, category : $category)';
 }

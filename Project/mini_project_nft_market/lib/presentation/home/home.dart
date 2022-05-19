@@ -16,11 +16,12 @@ class MyHomeMobile extends StatefulWidget {
 
 class _MyHomeMobileState extends State<MyHomeMobile> {
   final Creator hanyaCreator = Creator(
-      nickName: "Osc",
-      realName: "Oscar",
-      imgProfile:
-          "https://lh3.googleusercontent.com/_2Pq-UfIwLhEWPsgJjotqge32BdcDYuCvaSQjpJNu7kX20JiMHdwe8M7KhEtwI2aQabForu1UvdQDKsgs-XtoVte9_kITcK-vt04KA=w1400-k",
-      about: "Just a sample");
+    nickName: "Osc",
+    realName: "Oscar",
+    imgProfile:
+        "https://lh3.googleusercontent.com/_2Pq-UfIwLhEWPsgJjotqge32BdcDYuCvaSQjpJNu7kX20JiMHdwe8M7KhEtwI2aQabForu1UvdQDKsgs-XtoVte9_kITcK-vt04KA=w1400-k",
+    about: "Just a sample",
+  );
 
   final List<Content> isiContent = [
     Content(
@@ -31,6 +32,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       price: 0.00001,
       title: "Sample",
       dateCreated: DateTime.now(),
+      category: "invest",
     ),
     Content(
       description: "Testing",
@@ -40,16 +42,17 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       price: 0.00001,
       title: "Sample 2",
       dateCreated: DateTime.now(),
+      category: "art",
     ),
     Content(
-      description: "Testing",
-      imgUrl:
-          "https://darqtec.com/wp-content/uploads/2021/03/NFT-Purple-768x576.jpg",
-      creatorId: 1,
-      price: 0.00001,
-      title: "Sample 3",
-      dateCreated: DateTime.now(),
-    ),
+        description: "Testing",
+        imgUrl:
+            "https://darqtec.com/wp-content/uploads/2021/03/NFT-Purple-768x576.jpg",
+        creatorId: 1,
+        price: 0.00001,
+        title: "Sample 3",
+        dateCreated: DateTime.now(),
+        category: "aesthetic"),
   ];
 
   final DatabaseService _databaseService = DatabaseService();

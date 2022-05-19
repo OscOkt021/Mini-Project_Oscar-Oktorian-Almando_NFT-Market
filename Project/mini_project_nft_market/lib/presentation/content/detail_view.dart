@@ -159,40 +159,6 @@ class _DetailViewState extends State<DetailView> {
                         ),
                       ),
                     ),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children:  [
-                    //     CircleAvatar(
-                    //       radius: 25.0,
-                    //       backgroundImage: NetworkImage(
-                    //           'https://www.tutorialkart.com/img/hummingbird.png'),
-                    //       backgroundColor: Colors.transparent,
-                    //     ),
-                    //     ListTile(
-                    //       title: Center(
-                    //         child: Text(
-                    //           "Who",
-                    //           style: TextStyle(
-                    //             fontFamily: "Saira Condensed",
-                    //             fontWeight: FontWeight.w600,
-                    //             color: Colors.white,
-                    //             fontSize: 18,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       subtitle: Center(
-                    //         child: Text(
-                    //           "Artist",
-                    //           style: TextStyle(
-                    //             fontFamily: "Saira Condensed",
-                    //             fontWeight: FontWeight.w600,
-                    //             color: Colors.white38,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     CreatorOnly(
                         future: ccvm.getCreator(widget.content.creatorId)),
                     const SizedBox(
@@ -238,14 +204,15 @@ class _DetailViewState extends State<DetailView> {
                         ),
                         Expanded(
                           child: Column(
-                            children: const [
-                              Icon(
-                                Icons.favorite_rounded,
+                            children: [
+                              const Icon(
+                                Icons.face,
                                 color: Colors.white,
                               ),
                               Text(
-                                "28",
-                                style: TextStyle(
+                                // ignore: unnecessary_string_interpolations
+                                "${widget.content.category}",
+                                style: const TextStyle(
                                   fontFamily: "Saira Condensed",
                                   color: Colors.white,
                                 ),
