@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_nft_market/models/creator.dart';
 import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
+import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 
 class CreatorForm extends StatefulWidget {
   const CreatorForm({Key? key}) : super(key: key);
@@ -36,71 +37,152 @@ class _CreatorFormState extends State<CreatorForm> {
 
       Navigator.pop(context);
     } else {
-      print("kolom masih kosong");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Kolom Masih Kosong")));
     }
   }
+
+  final gradient = const LinearGradient(
+    colors: <Color>[
+      Colors.purple,
+      Colors.pink,
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add a new Creator'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: _nickNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Creator Nickname',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: _realNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Creator Real Name',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: _imgController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Image Url',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: _aboutController,
-                maxLines: 7,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'About Creator',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              SizedBox(
-                height: 45.0,
-                child: ElevatedButton(
-                  onPressed: _onSave,
-                  child: const Text(
-                    'Save the Creator',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+        title: GradientText(
+          "Add a New Creator!",
+          gradient: gradient,
+          style: const TextStyle(
+            // color: Colors.white,
+            fontFamily: "Saira Condensed",
+            fontSize: 28,
           ),
         ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/bg/bg1.jpg'),
+                  fit: BoxFit.fill)),
+        ),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          const Image(
+            image: AssetImage("assets/images/bg/bg1.jpg"),
+            fit: BoxFit.cover,
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextField(
+                    controller: _nickNameController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Creator Nickname',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _realNameController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Creator Real Name',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _imgController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Image Url',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _aboutController,
+                    maxLines: 7,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'About Creator',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  SizedBox(
+                    height: 45.0,
+                    child: ElevatedButton(
+                      onPressed: _onSave,
+                      child: const Text(
+                        'Save the Creator',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

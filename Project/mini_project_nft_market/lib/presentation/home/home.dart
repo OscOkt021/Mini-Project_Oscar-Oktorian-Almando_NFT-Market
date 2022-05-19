@@ -67,6 +67,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       _databaseService.insertContent(isiContent[2]);
       pref.setBool('ndb', false);
     } else {
+      // ignore: avoid_print
       print("Data sudah ada");
     }
   }

@@ -3,6 +3,7 @@ import 'package:mini_project_nft_market/models/content.dart';
 import 'package:mini_project_nft_market/models/creator.dart';
 import 'package:mini_project_nft_market/services/sql/nft_sql.dart';
 import 'package:mini_project_nft_market/widgets/creator_selector.dart';
+import 'package:mini_project_nft_market/widgets/gradient_icon.dart';
 
 class ContentForm extends StatefulWidget {
   const ContentForm({Key? key, this.content}) : super(key: key);
@@ -33,6 +34,15 @@ class _ContentFormState extends State<ContentForm> {
       _priceController.text = widget.content!.price.toString();
     }
   }
+
+  final gradient = const LinearGradient(
+    colors: <Color>[
+      Colors.purple,
+      Colors.pink,
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   Future<List<Creator>> _getCreators() async {
     final creators = await _databaseService.creators();
@@ -75,8 +85,8 @@ class _ContentFormState extends State<ContentForm> {
 
       Navigator.pop(context);
     } else {
-      // ignore: avoid_print
-      print("kolom masih kosong");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Kolom Masih Kosong")));
     }
   }
 
@@ -84,82 +94,158 @@ class _ContentFormState extends State<ContentForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Content!'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter title',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: _descriptionController,
-                maxLines: 7,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Describe this content',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: _imgUrlController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter image url',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                keyboardType: TextInputType.number,
-                controller: _priceController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter price',
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              FutureBuilder<List<Creator>>(
-                future: _getCreators(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Text("Loading creators...");
-                  }
-                  return CreatorSelector(
-                    creators: _creators.map((e) => e.nickName).toList(),
-                    selectedIndex: _selectedCreator,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedCreator = value;
-                      });
-                    },
-                  );
-                },
-              ),
-              const SizedBox(height: 24.0),
-              SizedBox(
-                height: 45.0,
-                child: ElevatedButton(
-                  onPressed: _onSave,
-                  child: const Text(
-                    'Save the content data',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+        title: GradientText(
+          "New Content",
+          gradient: gradient,
+          style: const TextStyle(
+            // color: Colors.white,
+            fontFamily: "Saira Condensed",
+            fontSize: 28,
           ),
         ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/bg/bg1.jpg'),
+                  fit: BoxFit.fill)),
+        ),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          const Image(
+            image: AssetImage("assets/images/bg/bg1.jpg"),
+            fit: BoxFit.cover,
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextField(
+                    controller: _titleController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Enter title',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _descriptionController,
+                    style: const TextStyle(color: Colors.white),
+                    maxLines: 7,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Describe this content',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _imgUrlController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Enter image url',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    controller: _priceController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Enter price',
+                      hintStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  FutureBuilder<List<Creator>>(
+                    future: _getCreators(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text(
+                          "Loading creators...",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        );
+                      }
+                      return CreatorSelector(
+                        creators: _creators.map((e) => e.nickName).toList(),
+                        selectedIndex: _selectedCreator,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedCreator = value;
+                          });
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24.0),
+                  SizedBox(
+                    height: 45.0,
+                    child: ElevatedButton(
+                      onPressed: _onSave,
+                      child: const Text(
+                        'Save the content data',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

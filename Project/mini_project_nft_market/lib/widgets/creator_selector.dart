@@ -19,6 +19,7 @@ class CreatorSelector extends StatelessWidget {
         const Text(
           'Select Creator',
           style: TextStyle(
+            color: Colors.white,
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
           ),
@@ -35,17 +36,24 @@ class CreatorSelector extends StatelessWidget {
                 child: Container(
                   height: 40.0,
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  margin: const EdgeInsets.only(right: 12.0),
+                  margin: const EdgeInsets.only(right: 12.0, left: 12.0),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
                       width: 3.0,
                       color:
-                          selectedIndex == index ? Colors.teal : Colors.black,
+                          selectedIndex == index ? Colors.teal : Colors.white,
                     ),
                   ),
-                  child: Text(creators[index]),
+                  child: Text(
+                    creators[index],
+                    style: TextStyle(
+                      color:
+                          selectedIndex == index ? Colors.teal : Colors.white,
+                      fontFamily: "Saira Condensed",
+                    ),
+                  ),
                 ),
               );
             },

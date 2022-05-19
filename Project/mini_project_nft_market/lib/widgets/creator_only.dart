@@ -105,10 +105,10 @@ class CreatorOnly extends StatelessWidget {
                       ),
                     ),
                   ),
-                  subtitle: const Center(
-                    child: const Text(
-                      "Artist",
-                      style: TextStyle(
+                  subtitle: Center(
+                    child: Text(
+                      snapshot.data!.realName,
+                      style: const TextStyle(
                         fontFamily: "Saira Condensed",
                         fontWeight: FontWeight.w600,
                         color: Colors.white38,
