@@ -68,7 +68,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
             "https://ik.imagekit.io/oyprice/bytes/wp-content/uploads/2021/03/NFT-01-scaled.jpg",
         creatorId: 1,
         price: 0.000013,
-        title: "Sample 4",
+        title: "Sample 5",
         dateCreated: DateTime.now(),
         category: "3d"),
     Content(
@@ -77,7 +77,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
             "https://www.cloudwards.net/wp-content/uploads/2021/06/NFT-coin.jpg",
         creatorId: 1,
         price: 0.000012,
-        title: "Sample 5",
+        title: "Sample 6",
         dateCreated: DateTime.now(),
         category: "invest"),
   ];
@@ -97,6 +97,7 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       _databaseService.insertContent(isiContent[2]);
       _databaseService.insertContent(isiContent[3]);
       _databaseService.insertContent(isiContent[4]);
+      _databaseService.insertContent(isiContent[5]);
       pref.setBool('ndb', false);
     } else {
       // ignore: avoid_print
