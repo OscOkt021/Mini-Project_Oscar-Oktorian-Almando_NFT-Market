@@ -12,7 +12,7 @@ class CategorySelector extends StatelessWidget {
   }) : super(key: key);
   final List<String> content;
   final int selectedIndex;
-  final Function(int) onChanged;
+  final Function(int, String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CategorySelector extends StatelessWidget {
         return Row(
           children: [
             GestureDetector(
-              onTap: () => onChanged(index),
+              onTap: () => onChanged(index, content[index]),
               child: Container(
                 height: 40.0,
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),

@@ -53,6 +53,33 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
         title: "Sample 3",
         dateCreated: DateTime.now(),
         category: "aesthetic"),
+    Content(
+        description: "Im a Cat",
+        imgUrl:
+            "https://images.squarespace-cdn.com/content/v1/53a1a597e4b017ac5c2c7f48/1625468272323-UL58RRTNDO4X57Z57UPN/gang.jpg",
+        creatorId: 1,
+        price: 0.0003,
+        title: "Sample 4",
+        dateCreated: DateTime.now(),
+        category: "art"),
+    Content(
+        description: "It a good one",
+        imgUrl:
+            "https://ik.imagekit.io/oyprice/bytes/wp-content/uploads/2021/03/NFT-01-scaled.jpg",
+        creatorId: 1,
+        price: 0.000013,
+        title: "Sample 4",
+        dateCreated: DateTime.now(),
+        category: "3d"),
+    Content(
+        description: "Invest It",
+        imgUrl:
+            "https://www.cloudwards.net/wp-content/uploads/2021/06/NFT-coin.jpg",
+        creatorId: 1,
+        price: 0.000012,
+        title: "Sample 5",
+        dateCreated: DateTime.now(),
+        category: "invest"),
   ];
 
   final DatabaseService _databaseService = DatabaseService();
@@ -68,6 +95,8 @@ class _MyHomeMobileState extends State<MyHomeMobile> {
       _databaseService.insertContent(isiContent[0]);
       _databaseService.insertContent(isiContent[1]);
       _databaseService.insertContent(isiContent[2]);
+      _databaseService.insertContent(isiContent[3]);
+      _databaseService.insertContent(isiContent[4]);
       pref.setBool('ndb', false);
     } else {
       // ignore: avoid_print

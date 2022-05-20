@@ -15,6 +15,10 @@ class ContentCreatorVM {
     return await _databaseService.content();
   }
 
+  Future<List<Content>> getContentsByCategory(String category) async {
+    return await _databaseService.contentFromCategory(category);
+  }
+
   Future<List<Content>> getContentsFromUsers(int id) async {
     return await _databaseService.contentWithId(id);
   }

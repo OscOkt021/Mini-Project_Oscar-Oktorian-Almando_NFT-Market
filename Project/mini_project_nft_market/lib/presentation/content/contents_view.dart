@@ -28,12 +28,21 @@ class _ItemViewState extends State<ItemView> {
   static final List<Content> _contents = [];
 
   int _selectedContent = 0;
+  String _category = "";
 
   Future<List<Content>> _getContents() async {
     final contents = await _databaseService.contentByCategory();
     if (_contents.isEmpty) _contents.addAll(contents);
 
     return _contents;
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _category = "all";
+    });
+    super.initState();
   }
 
   @override
@@ -71,68 +80,26 @@ class _ItemViewState extends State<ItemView> {
                       ),
                     ],
                   ),
-                  const Center(
-                    child: GradientText("Explore It!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Saira Condensed",
-                          fontSize: 35,
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Colors.purple, Colors.pink],
-                        )),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _category = "all";
+                        });
+                      },
+                      child: const GradientText("Explore It!",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Saira Condensed",
+                            fontSize: 35,
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [Colors.purple, Colors.pink],
+                          )),
+                    ),
                   ),
-                  // SingleChildScrollView(
-                  //   scrollDirection: Axis.horizontal,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  // Badge(
-                  //   icon: Icons.circle,
-                  //   color: Colors.blue,
-                  //   text: "All",
-                  // ),
-                  //       // SizedBox(
-                  //       //   width: 10,
-                  //       // ),
-                  //       // Badge(
-                  //       //   icon: Icons.music_note,
-                  //       //   text: "Music",
-                  //       // ),
-                  //       // SizedBox(
-                  //       //   width: 10,
-                  //       // ),
-                  //       // Badge(
-                  //       //   icon: Icons.camera,
-                  //       //   text: "Aestethic",
-                  //       // ),
-                  //       // SizedBox(
-                  //       //   width: 10,
-                  //       // ),
-                  //       // Badge(
-                  //       //   icon: Icons.brush,
-                  //       //   text: "Art",
-                  //       // ),
-                  //       // SizedBox(
-                  //       //   width: 10,
-                  //       // ),
-                  //       // Badge(
-                  //       //   icon: Icons.person,
-                  //       //   text: "3D",
-                  //       // ),
-                  //       // SizedBox(
-                  //       //   width: 10,
-                  //       // ),
-                  //       // Badge(
-                  //       //   icon: Icons.money,
-                  //       //   text: "Invest",
-                  //       // ),
-
-                  //     ],
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 50,
                     child: FutureBuilder<List<Content>>(
@@ -150,9 +117,10 @@ class _ItemViewState extends State<ItemView> {
                         return CategorySelector(
                           content: _contents.map((e) => e.category).toList(),
                           selectedIndex: _selectedContent,
-                          onChanged: (value) {
+                          onChanged: (value, val) {
                             setState(() {
                               _selectedContent = value;
+                              _category = val;
                             });
                           },
                         );
@@ -161,7 +129,7 @@ class _ItemViewState extends State<ItemView> {
                   ),
                   ContentBuilder(
                     // future: _getContents(),
-                    future: contentCreatorVM.getContents(),
+                    future: contentCreatorVM.getContentsByCategory(_category),
                     onEdit: (value) {
                       {
                         Navigator.of(context)

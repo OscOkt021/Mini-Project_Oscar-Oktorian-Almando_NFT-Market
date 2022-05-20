@@ -382,36 +382,3 @@ class CardItem extends StatelessWidget {
     );
   }
 }
-
-class Badge extends StatelessWidget {
-  const Badge({
-    Key? key,
-    this.icon = Icons.circle,
-    this.text = "Trending",
-    this.color = Colors.grey,
-  }) : super(key: key);
-
-  final IconData icon;
-  final MaterialColor color;
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: color,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-      onPressed: () {},
-      child: Row(children: [
-        Icon(icon),
-        const SizedBox(
-          width: 5,
-        ),
-        Text(text)
-      ]),
-    );
-  }
-}

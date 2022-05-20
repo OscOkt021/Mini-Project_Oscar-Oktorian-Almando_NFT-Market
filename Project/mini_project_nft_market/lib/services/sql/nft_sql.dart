@@ -96,6 +96,19 @@ class DatabaseService {
     return List.generate(maps.length, (index) => Content.fromMap(maps[index]));
   }
 
+  Future<List<Content>> contentFromCategory(String category) async {
+    final db = await _databaseService.database;
+
+    if (category == "all") {
+      final List<Map<String, dynamic>> maps = await db.query('content');
+      return List.generate(
+          maps.length, (index) => Content.fromMap(maps[index]));
+    }
+    final List<Map<String, dynamic>> maps =
+        await db.query('content', where: 'category = ?', whereArgs: [category]);
+    return List.generate(maps.length, (index) => Content.fromMap(maps[index]));
+  }
+
   Future<List<Content>> contentWithId(int id) async {
     final db = await _databaseService.database;
     final List<Map<String, dynamic>> maps =
